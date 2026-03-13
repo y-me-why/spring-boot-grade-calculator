@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Calculation Result</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 32px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 0;
+            color: #111827;
+        }
+        .header-section {
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 32px; 
+        }
+        th { 
+            text-align: left; 
+            font-size: 0.875rem; 
+            color: #6b7280; 
+            font-weight: 500; 
+            padding: 12px 8px; 
+            border-bottom: 1px solid #e5e7eb; 
+        }
+        td { 
+            padding: 12px 8px; 
+            border-bottom: 1px solid #f3f4f6; 
+            font-size: 0.95rem; 
+        }
+        .summary-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .summary-row:last-child {
+            margin-bottom: 0;
+            padding-top: 12px;
+            border-top: 1px solid #e5e7eb;
+            font-weight: 600;
+        }
+        .label { color: #4b5563; }
+        .value { color: #111827; }
+        
+        .btn-back {
+            display: block;
+            text-align: center;
+            background: #ffffff;
+            color: #374151;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+        .btn-back:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-section">
+            <h2>Grade Report</h2>
+            <div style="color: #6b7280; font-size: 0.9rem;">Student: <span style="color: #111827; font-weight: 500;" th:text="${record.studentName}"></span></div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject Name</th>
+                    <th style="text-align: right;">Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="subject : ${record.subjects}">
+                    <td th:text="${subject.subjectName}"></td>
+                    <td style="text-align: right;" th:text="${subject.score}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="summary-card">
+            <div class="summary-row">
+                <span class="label">Total Score</span>
+                <span class="value"><span th:text="${record.totalScore}"></span> / <span th:text="${record.outof * record.subjects.size()}"></span></span>
+            </div>
+            <div class="summary-row">
+                <span class="label">Percentage</span>
+                <span class="value" th:text="${#numbers.formatDecimal(record.percentage, 1, 2)} + '%'"></span>
+            </div>
+            <div class="summary-row">
+                <span class="label">Final Grade</span>
+                <span class="value" th:text="${record.grade}"></span>
+            </div>
+        </div>
+
+        <a href="/" class="btn-back">Calculate Another</a>
+    </div>
+
+</body>
+</html>
