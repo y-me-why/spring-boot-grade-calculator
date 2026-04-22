@@ -94,13 +94,13 @@
     <div class="container">
         <h2>Enter Student Marks</h2>
         
-        <form action="#" th:action="@{/}" th:object="${gradeRecord}" method="post">
+        <form action="#" th:action="@{/calculator}" th:object="${gradeRecord}" method="post">
             
             <label>Student Name</label>
             <input type="text" th:field="*{studentName}" placeholder="e.g. Mathew" required />
 
             <label>Maximum Marks (Per Subject)</label>
-            <input type="number" step="0.01" th:field="*{outof}" placeholder="e.g. 50" required />
+            <input type="number" step="0.01" th:field="*{outOf}" placeholder="e.g. 50" required />
 
             <div class="subject-container" th:each="subject, itemStat : *{subjects}">
                 <label>Subject Name</label>

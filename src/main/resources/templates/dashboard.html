@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Dashboard</title>
+    <style> 
+        body { font-family: -apple-system, sans-serif; background: #f9fafb; margin: 0; padding: 40px 20px; display: flex; justify-content: center; }
+        .container { background: #fff; padding: 32px; border-radius: 8px; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); width: 100%; max-width: 800px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 20px; margin-bottom: 20px; }
+        .btn-new { background: #2563eb; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.9rem;}
+        .btn-logout { background: #f3f4f6; color: #374151; padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem;}
+        .record-card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;}
+        .grade-badge { background: #111827; color: white; padding: 6px 12px; border-radius: 20px; font-weight: bold;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2 style="margin: 0;">Hello, <span th:text="${username}"></span>!</h2>
+            <div style="display: flex; gap: 10px;">
+                <a href="/calculator" class="btn-new">+ New Calculation</a>
+                <form th:action="@{/logout}" method="post" style="margin: 0;">
+                    <button type="submit" class="btn-logout">Logout</button>
+                </form>
+            </div>
+        </div>
+
+        <h3>Your Past Calculations</h3>
+        <p th:if="${records.empty}" style="color: #6b7280;">No records found. Click '+ New Calculation' to get started!</p>
+
+        <div th:each="record : ${records}" class="record-card">
+            <div>
+                <strong style="font-size: 1.1rem; display: block;" th:text="${record.studentName}"></strong>
+                <span style="color: #6b7280; font-size: 0.9rem;" th:text="${record.subjects.size()} + ' Subjects'"></span>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-weight: 500;" th:text="${record.totalScore} + ' / ' + (${record.outOf} * ${record.subjects.size()})"></div>
+                <div style="color: #6b7280; font-size: 0.85rem;" th:text="${#numbers.formatDecimal(record.percentage, 1, 2)} + '%'"></div>
+            </div>
+            <div class="grade-badge" th:text="${record.grade}"></div>
+        </div>
+    </div>
+</body>
+</html>

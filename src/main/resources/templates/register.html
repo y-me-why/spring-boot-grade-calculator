@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <style> /* Use the same CSS from your previous index.html here for consistency */
+        body { font-family: -apple-system, sans-serif; background: #f9fafb; display: flex; justify-content: center; padding: 40px 20px; }
+        .container { background: #fff; padding: 32px; border-radius: 8px; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); width: 100%; max-width: 400px; }
+        input { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; }
+        .btn { width: 100%; padding: 10px; background: #111827; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+        .btn:hover { background: #374151; }
+        a { display: block; text-align: center; margin-top: 15px; color: #2563eb; text-decoration: none; font-size: 0.9rem;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align: center; margin-top: 0;">Create Account</h2>
+        <form th:action="@{/register}" method="post">
+            <label>Username</label>
+            <input type="text" name="username" required/>
+            <label>Password</label>
+            <input type="password" name="password" required/>
+            <button type="submit" class="btn">Register</button>
+        </form>
+        <a href="/login">Already have an account? Login</a>
+    </div>
+</body>
+</html>

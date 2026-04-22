@@ -3,7 +3,6 @@ package com.example.gradecalculator.service;
 import org.springframework.stereotype.Service;
 
 import com.example.gradecalculator.model.GradeRecord;
-import com.example.gradecalculator.model.SubjectGrade;
 import com.example.gradecalculator.repository.GradeRecordRepository;
 
 @Service
@@ -15,23 +14,21 @@ public class GradeService {
 		this.repository = repository;
 	}
 
-	// This method takes the whole record, does the math, and saves it
-	public void processAndSaveGrade(GradeRecord record) {
+	// Update this method signature and add record.setUser(user);
+    public void processAndSaveGrade(GradeRecord record, com.example.gradecalculator.model.User user) {
+        record.setUser(user); // Link calculation to logged in user
+        
         double total = 0;
         int numberOfSubjects = record.getSubjects().size();
 
-        for (SubjectGrade subject : record.getSubjects()) {
+        for (com.example.gradecalculator.model.SubjectGrade subject : record.getSubjects()) {
             total += subject.getScore();
             subject.setGradeRecord(record); 
         }
 
-
-        double totalMaxMarks = numberOfSubjects * record.getOutof();
-
+        double totalMaxMarks = numberOfSubjects * record.getOutOf();
         double percentage = 0;
-        if (totalMaxMarks > 0) {
-            percentage = (total / totalMaxMarks) * 100.0;
-        }
+        if (totalMaxMarks > 0) percentage = (total / totalMaxMarks) * 100.0;
 
         record.setTotalScore(total);
         record.setPercentage(percentage);

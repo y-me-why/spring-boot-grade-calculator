@@ -1,13 +1,16 @@
 package com.example.gradecalculator.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class GradeRecord {
@@ -20,21 +23,38 @@ public class GradeRecord {
 	private double totalScore;
 	private double percentage;
 	private String grade;
-	private int outof;
+	private double outOf;
 
-	public int getOutof() {
-		return outof;
-	}
+	// Make sure your variable at the top of the file looks like this:
+    // private double outOf;
 
-	public void setOutof(int outof) {
-		this.outof = outof;
-	}
+    public double getOutOf() {
+        return outOf;
+    }
+
+    public void setOutOf(double outOf) {
+        this.outOf = outOf;
+    }
 
 	@OneToMany(mappedBy = "gradeRecord", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<SubjectGrade> subjects = new ArrayList<>();
 
+	// Add this right below your other variables
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    
+	
 //    public GradeRecord() {
 //    }
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public void addSubject(SubjectGrade subject) {
 		subjects.add(subject);

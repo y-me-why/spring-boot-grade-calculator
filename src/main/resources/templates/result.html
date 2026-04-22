@@ -117,7 +117,7 @@
         <div class="summary-card">
             <div class="summary-row">
                 <span class="label">Total Score</span>
-                <span class="value"><span th:text="${record.totalScore}"></span> / <span th:text="${record.outof * record.subjects.size()}"></span></span>
+                <span class="value"><span th:text="${record.totalScore}"></span> / <span th:text="${record.outOf * record.subjects.size()}"></span></span>
             </div>
             <div class="summary-row">
                 <span class="label">Percentage</span>
@@ -129,7 +129,7 @@
             </div>
         </div>
 
-        <a href="/" class="btn-back">Calculate Another</a>
+        <a href="/dashboard" class="btn-back">Back to Dashboard</a>
     </div>
 
 </body>
